@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição 14ª - Titan 160cc 0KM | Ações Premiadas</title>
+    <meta name="description" content="Participe da nossa ação entre amigos e concorra a uma Titan 160cc 0KM por apenas R$ 0,10! Prêmios instantâneos e sorteio oficial pela Loteria Federal.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-accent">Mega</span>Rifas
+            </div>
+            <div class="header-actions">
+                <button class="btn-theme-toggle" id="btnThemeToggle" aria-label="Alternar tema">🌓 Mode</button>
+                <button class="btn-my-tickets" id="btnMyTickets" aria-label="Ver meus títulos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 8h9s1-1 1.5 0v11c-.5 1-1.5 0-1.5 0h-9s-1 1-1.5 0V8c.5-1 1.5 0 1.5 0z"/><path d="M5 14h14"/><path d="M12 8v11"/></svg>
+                    <span>Meus Títulos</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-banner-wrapper">
+                <img src="titan_160_banner.png" alt="Honda Titan 160cc 0KM" class="hero-image">
+                <div class="hero-badge">ADQUIRA JÁ!</div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Edição 14ª - Titan 160cc 0KM</h1>
+                <p class="hero-subtitle">Ou R$ 15.000,00 direto na sua conta!</p>
+                <div class="price-highlight">
+                    <span class="price-label">Por apenas</span>
+                    <span class="price-value">R$ 0,10</span>
+                </div>
+                
+                <!-- Progresso da Ação -->
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>Progresso da Ação</span>
+                        <span id="progress-percent">72%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 72%;"></div>
+                    </div>
+                    <div class="progress-footer">
+                        <span>⚡ Garanta já o seu número!</span>
+                        <span>Sorteio Loteria Federal</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Barra de Navegação Rápida -->
+        <nav class="quick-nav">
+            <a href="#buy-section" class="nav-item">🎟️ Bilhetes</a>
+            <a href="#instant-prizes" class="nav-item">🏆 Instantâneos</a>
+            <a href="#winners-section" class="nav-item">👥 Ganhadores</a>
+            <a href="#terms-section" class="nav-item">📄 Regulamento</a>
+        </nav>
+
+        <!-- Seção de Compra -->
+        <section id="buy-section" class="buy-section">
+            <h2 class="section-title">Comprar Bilhetes</h2>
+            <p class="section-subtitle">Escolha uma opção rápida ou a quantidade desejada</p>
+
+            <!-- Grade de Seleção Rápida -->
+            <div class="quick-select-grid">
+                <button class="quick-select-btn" data-amount="100">
+                    <span class="btn-amount">+100</span>
+                    <span class="btn-desc">SELECIONAR</span>
+                </button>
+                <button class="quick-select-btn popular" data-amount="200">
+                    <span class="badge-popular">Mais Popular</span>
+                    <span class="btn-amount">+200</span>
+                    <span class="btn-desc">SELECIONAR</span>
+                </button>
+                <button class="quick-select-btn" data-amount="300">
+                    <span class="btn-amount">+300</span>
+                    <span class="btn-desc">SELECIONAR</span>
+                </button>
+                <button class="quick-select-btn" data-amount="400">
+                    <span class="btn-amount">+400</span>
+                    <span class="btn-desc">SELECIONAR</span>
+                </button>
+                <button class="quick-select-btn" data-amount="500">
+                    <span class="btn-amount">+500</span>
+                    <span class="btn-desc">SELECIONAR</span>
+                </button>
+                <button class="quick-select-btn" data-amount="1000">
+                    <span class="btn-amount">+1000</span>
+                    <span class="btn-desc">SELECIONAR</span>
+                </button>
+            </div>
+
+            <!-- Seletor de Quantidade Customizado -->
+            <div class="custom-qty-wrapper">
+                <div class="qty-selector">
+                    <button class="qty-btn" id="qty-minus" aria-label="Diminuir quantidade">−</button>
+                    <input type="number" id="qty-input" value="100" min="1" max="10000" aria-label="Quantidade de bilhetes">
+                    <button class="qty-btn" id="qty-plus" aria-label="Aumentar quantidade">+</button>
+                </div>
+                
+                <!-- Botão de Ação Principal (CTA) -->
+                <button class="cta-purchase-btn" id="cta-purchase">
+                    <span class="cta-pulse"></span>
+                    <div class="cta-content">
+                        <span class="cta-text">Quero Participar!</span>
+                        <span class="cta-price" id="cta-total-price">R$ 10,00</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Combos Promocionais -->
+            <div class="promotional-combos">
+                <h3 class="combo-title">Combos Promocionais ✨</h3>
+                <div class="combos-list">
+                    <div class="combo-card" data-amount="200">
+                        <div class="combo-info">
+                            <span class="combo-qty">200 Títulos</span>
+                            <span class="combo-desc">Receba 3 chances em Caixas Premiadas</span>
+                        </div>
+                        <div class="combo-price-action">
+                            <span class="combo-val">R$ 20,00</span>
+                            <span class="combo-badge">Selecionar</span>
+                        </div>
+                    </div>
+                    <div class="combo-card highlighted" data-amount="500">
+                        <div class="combo-info">
+                            <span class="combo-qty">500 Títulos</span>
+                            <span class="combo-desc">Receba 5 chances em Roletas e Caixas Premiadas</span>
+                        </div>
+                        <div class="combo-price-action">
+                            <span class="combo-val">R$ 50,00</span>
+                            <span class="combo-badge">Melhor Valor</span>
+                        </div>
+                    </div>
+                    <div class="combo-card" data-amount="1000">
+                        <div class="combo-info">
+                            <span class="combo-qty">1000 Títulos</span>
+                            <span class="combo-desc">Receba 12 chances em todas as Caixas</span>
+                        </div>
+                        <div class="combo-price-action">
+                            <span class="combo-val">R$ 100,00</span>
+                            <span class="combo-badge">Super Desconto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prêmios Instantâneos (Accordions) -->
+        <section id="instant-prizes" class="prizes-section">
+            <h2 class="section-title">Prêmios Instantâneos 🎁</h2>
+            <p class="section-subtitle">Achou o bilhete premiado, ganhou na hora!</p>
+
+            <!-- Acordeão 1: Roletas -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="accordion-roletas">
+                    <span class="accordion-title-text">
+                        <span class="icon">🎯</span> Roletas em Dinheiro
+                    </span>
+                    <span class="accordion-badge green">14/20 Contemplados</span>
+                    <span class="accordion-arrow"></span>
+                </button>
+                <div id="accordion-roletas" class="accordion-content">
+                    <ul class="instant-prizes-list">
+                        <li class="prize-row available">
+                            <span class="prize-code">Nº 122890</span>
+                            <span class="prize-name">R$ 500,00 Pix</span>
+                            <span class="prize-status">Disponível</span>
+                        </li>
+                        <li class="prize-row claimed">
+                            <span class="prize-code">Nº 345687</span>
+                            <span class="prize-name">R$ 200,00 Pix</span>
+                            <span class="prize-status">Wender S. 🏆</span>
+                        </li>
+                        <li class="prize-row available">
+                            <span class="prize-code">Nº 543112</span>
+                            <span class="prize-name">R$ 200,00 Pix</span>
+                            <span class="prize-status">Disponível</span>
+                        </li>
+                        <li class="prize-row claimed">
+                            <span class="prize-code">Nº 169976</span>
+                            <span class="prize-name">R$ 200,00 Pix</span>
+                            <span class="prize-status">José R. 🏆</span>
+                        </li>
+                        <li class="prize-row available">
+                            <span class="prize-code">Nº 427423</span>
+                            <span class="prize-name">R$ 100,00 Pix</span>
+                            <span class="prize-status">Disponível</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Acordeão 2: Caixas Premiadas -->
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="accordion-caixas">
+                    <span class="accordion-title-text">
+                        <span class="icon">📦</span> Caixas de Eletrônicos
+                    </span>
+                    <span class="accordion-badge green">2/11 Contemplados</span>
+                    <span class="accordion-arrow"></span>
+                </button>
+                <div id="accordion-caixas" class="accordion-content">
+                    <ul class="instant-prizes-list">
+                        <li class="prize-row available">
+                            <span class="prize-code">Nº 029432</span>
+                            <span class="prize-name">Redmi Note 13</span>
+                            <span class="prize-status">Disponível</span>
+                        </li>
+                        <li class="prize-row claimed">
+                            <span class="prize-code">Nº 884729</span>
+                            <span class="prize-name">JBL Boombox 3</span>
+                            <span class="prize-status">Kauan M. 🏆</span>
+                        </li>
+                        <li class="prize-row available">
+                            <span class="prize-code">Nº 743122</span>
+                            <span class="prize-name">iPhone 15 Pro</span>
+                            <span class="prize-status">Disponível</span>
+                        </li>
+                        <li class="prize-row available">
+                            <span class="prize-code">Nº 552190</span>
+                            <span class="prize-name">Smartwatch Amazfit</span>
+                            <span class="prize-status">Disponível</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lista de Ganhadores (Prova Social) -->
+        <section id="winners-section" class="winners-section">
+            <h2 class="section-title">Últimos Ganhadores 🏆</h2>
+            <p class="section-subtitle">Confira quem já levou prêmios nesta edição</p>
+            
+            <div class="table-container">
+                <table class="winners-table">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Prêmio</th>
+                            <th>Ganhador</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="winner-number">122890</span></td>
+                            <td>R$ 200,00</td>
+                            <td><span class="winner-name">José Lima</span></td>
+                        </tr>
+                        <tr class="highlighted-row">
+                            <td><span class="winner-number">884729</span></td>
+                            <td>JBL Boombox 3</td>
+                            <td><span class="winner-name">Kauan Mendes</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="winner-number">169976</span></td>
+                            <td>R$ 200,00</td>
+                            <td><span class="winner-name">Gabriel Silva</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="winner-number">345687</span></td>
+                            <td>R$ 200,00</td>
+                            <td><span class="winner-name">Wender Santos</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Regulamento / Termos -->
+        <section id="terms-section" class="terms-section">
+            <h2 class="section-title">Regulamento da Ação</h2>
+            <div class="terms-content">
+                <p>1. Esta ação entre amigos é baseada nos números extraídos da Loteria Federal.</p>
+                <p>2. A data do sorteio principal será marcada assim que 100% das cotas forem vendidas.</p>
+                <p>3. Os prêmios instantâneos são atrelados a números específicos já definidos e cadastrados no sistema. Caso você selecione um desses números, o prêmio correspondente é seu de forma imediata.</p>
+                <p>4. Pagamento via PIX deve ser realizado em até 10 minutos após a reserva para garantir sua participação.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-social">
+            <a href="#" class="social-icon" aria-label="WhatsApp">🟢 WhatsApp</a>
+            <a href="#" class="social-icon" aria-label="Instagram">📸 Instagram</a>
+            <a href="#" class="social-icon" aria-label="Telegram">✈️ Telegram</a>
+        </div>
+        <div class="footer-info">
+            <p>MegaRifas Intermediações Ltda | CNPJ: 00.000.000/0001-00</p>
+            <p class="copyright">© 2026 MegaRifas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: Meus Títulos -->
+    <div class="modal-overlay" id="modalMyTickets">
+        <div class="modal-card">
+            <button class="modal-close" id="closeMyTickets">&times;</button>
+            <h3 class="modal-title">Consultar Meus Títulos 🎫</h3>
+            <p class="modal-desc">Digite seu telefone para buscar suas compras e bilhetes reservados.</p>
+            <div class="form-group">
+                <label for="search-phone">Telefone (WhatsApp)</label>
+                <input type="tel" id="search-phone" placeholder="(11) 99999-9999" required>
+            </div>
+            <button class="btn-primary" id="btnSearchSubmit">Consultar Títulos</button>
+            <div id="search-results" class="search-results hidden">
+                <!-- Preenchido via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Checkout Rápido & PIX -->
+    <div class="modal-overlay" id="modalCheckout">
+        <div class="modal-card">
+            <button class="modal-close" id="closeCheckout">&times;</button>
+            
+            <!-- Passo 1: Cadastro Rápido -->
+            <div id="checkout-step-1">
+                <h3 class="modal-title">Finalizar Participação ⚡</h3>
+                <p class="modal-desc">Preencha os campos abaixo para reservar seus bilhetes.</p>
+                <form id="form-checkout">
+                    <div class="form-group">
+                        <label for="user-name">Nome Completo</label>
+                        <input type="text" id="user-name" placeholder="Ex: José da Silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-phone">Telefone (WhatsApp)</label>
+                        <input type="tel" id="user-phone" placeholder="(11) 99999-9999" required>
+                    </div>
+                    
+                    <div class="checkout-summary">
+                        <div class="summary-line">
+                            <span>Quantidade:</span>
+                            <span id="summary-qty">100 Títulos</span>
+                        </div>
+                        <div class="summary-line total">
+                            <span>Total a Pagar:</span>
+                            <span id="summary-total">R$ 10,00</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Ir para o Pagamento (PIX)</button>
+                </form>
+            </div>
+
+            <!-- Passo 2: Geração do PIX -->
+            <div id="checkout-step-2" class="hidden">
+                <h3 class="modal-title text-center">Pagamento via PIX 💸</h3>
+                <p class="modal-desc text-center">Escaneie o QR Code ou copie a chave abaixo. Seu pagamento é aprovado instantaneamente!</p>
+                
+                <div class="pix-timer-wrapper">
+                    <span>Aguardando pagamento... Expira em:</span>
+                    <span id="pix-timer" class="timer">09:59</span>
+                </div>
+
+                <div class="pix-qr-container">
+                    <!-- QR Code Simulador -->
+                    <div class="fake-qr-code">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="160" height="160">
+                            <rect width="100" height="100" fill="#fff"/>
+                            <!-- QR Pattern Elements -->
+                            <rect x="5" y="5" width="25" height="25" fill="#000"/>
+                            <rect x="10" y="10" width="15" height="15" fill="#fff"/>
+                            <rect x="12" y="12" width="11" height="11" fill="#000"/>
+                            
+                            <rect x="70" y="5" width="25" height="25" fill="#000"/>
+                            <rect x="75" y="10" width="15" height="15" fill="#fff"/>
+                            <rect x="77" y="12" width="11" height="11" fill="#000"/>
+                            
+                            <rect x="5" y="70" width="25" height="25" fill="#000"/>
+                            <rect x="10" y="75" width="15" height="15" fill="#fff"/>
+                            <rect x="12" y="77" width="11" height="11" fill="#000"/>
+                            
+                            <!-- Internal structures -->
+                            <rect x="40" y="40" width="20" height="20" fill="#000"/>
+                            <rect x="45" y="45" width="10" height="10" fill="#fff"/>
+                            <rect x="48" y="48" width="4" height="4" fill="#0277bd"/> <!-- pix core color block -->
+                            
+                            <rect x="35" y="10" width="5" height="15" fill="#000"/>
+                            <rect x="50" y="5" width="10" height="5" fill="#000"/>
+                            <rect x="55" y="15" width="10" height="10" fill="#000"/>
+                            <rect x="10" y="35" width="15" height="5" fill="#000"/>
+                            <rect x="15" y="50" width="5" height="15" fill="#000"/>
+                            <rect x="75" y="35" width="15" height="15" fill="#000"/>
+                            <rect x="35" y="75" width="15" height="15" fill="#000"/>
+                            <rect x="75" y="70" width="10" height="5" fill="#000"/>
+                            <rect x="85" y="80" width="10" height="15" fill="#000"/>
+                        </svg>
+                        <div class="qr-logo-overlay">
+                            <span>PIX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pix-copy-paste-container">
+                    <label for="pix-code">Código Copia e Cola:</label>
+                    <div class="copy-paste-input-wrapper">
+                        <input type="text" id="pix-code" value="00020101021226870014br.gov.bcb.pix2565pix.pagar.megarifas.com/v2/cob/0aa8f88c-7f5b-402a-9cd4-3c66289d0cf3520400005303986540510.005802BR5915MegaRifas%20Ltda6009Sao%20Paulo62070503***6304CA3B" readonly>
+                        <button class="btn-copy" id="btnCopyPix">Copiar</button>
+                    </div>
+                </div>
+
+                <div class="checkout-footer-notes">
+                    <p>💡 Após realizar o pagamento, você não precisa enviar comprovante. O sistema valida de forma automática.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
