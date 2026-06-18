@@ -7,7 +7,7 @@
     --bg-surface-elevated: #22222b;
     --border-color: #2e2e3a;
     
-    --primary: #00e676; /* Vibrante neon green */
+    --primary: #00e676; /* Neon green */
     --primary-glow: rgba(0, 230, 118, 0.35);
     --primary-hover: #00c853;
     
@@ -29,19 +29,18 @@
     --border-radius-lg: 24px;
 }
 
-/* Light Theme Variables Override */
 body.light-theme {
     --bg-main: #f4f5f8;
     --bg-surface: #ffffff;
     --bg-surface-elevated: #f0f0f4;
     --border-color: #d1d1d8;
     
-    --primary: #00a850;
-    --primary-glow: rgba(0, 168, 80, 0.2);
-    --primary-hover: #008a40;
+    --primary: #108400; /* Rich Forest Green */
+    --primary-glow: rgba(16, 132, 0, 0.2);
+    --primary-hover: #0d6b00;
     
-    --accent: #cc9900;
-    --accent-glow: rgba(204, 153, 0, 0.15);
+    --accent: #c67a00;
+    --accent-glow: rgba(198, 122, 0, 0.15);
     
     --text-primary: #121214;
     --text-secondary: #4a4a52;
@@ -103,6 +102,10 @@ img {
     z-index: 100;
 }
 
+body.light-theme .app-header {
+    background: rgba(255, 255, 255, 0.85);
+}
+
 .header-container {
     max-width: 600px;
     margin: 0 auto;
@@ -121,26 +124,6 @@ img {
 .logo-accent {
     color: var(--primary);
     text-shadow: 0 0 10px var(--primary-glow);
-}
-
-.btn-my-tickets {
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
-    border-radius: var(--border-radius-sm);
-    font-weight: 600;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btn-my-tickets:hover {
-    background: var(--border-color);
-    transform: translateY(-1px);
 }
 
 .header-actions {
@@ -165,6 +148,26 @@ img {
 }
 
 .btn-theme-toggle:hover {
+    background: var(--border-color);
+    transform: translateY(-1px);
+}
+
+.btn-my-tickets {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-my-tickets:hover {
     background: var(--border-color);
     transform: translateY(-1px);
 }
@@ -204,7 +207,7 @@ img {
     bottom: 12px;
     left: 12px;
     background: var(--primary);
-    color: #000;
+    color: #fff;
     font-weight: 800;
     padding: 0.35rem 0.8rem;
     border-radius: 4px;
@@ -212,6 +215,10 @@ img {
     letter-spacing: 0.5px;
     box-shadow: var(--shadow-sm);
     animation: badgePulse 2s infinite;
+}
+
+body.light-theme .hero-badge {
+    color: #fff;
 }
 
 .hero-content {
@@ -348,223 +355,267 @@ section {
 }
 
 /* ==========================================================================
-   BUY TICKET MOTOR
+   BUY TICKET MOTOR & SELECT SINGLE
    ========================================================================== */
 .buy-section {
     background: var(--bg-main);
 }
 
-/* Grid of quick additions */
-.quick-select-grid {
+.prizes-modal-trigger-wrapper {
+    margin-bottom: 1rem;
+}
+
+.btn-prize-trigger {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-prize-trigger:hover {
+    background: var(--border-color);
+}
+
+/* Custom layout select-single */
+.select-single {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.selection-message {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.2rem;
+}
+
+.content-select {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.8rem;
     margin-bottom: 1.5rem;
 }
 
-.quick-select-btn {
-    background: var(--bg-surface);
+.select {
+    background: var(--bg-surface-elevated);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
-    color: var(--text-primary);
-    padding: 1rem 0.5rem;
+    padding: 1rem 0.4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
     position: relative;
 }
 
-.quick-select-btn:hover {
+.select:hover {
     border-color: var(--primary);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 230, 118, 0.15);
 }
 
-.quick-select-btn.active {
-    background: rgba(0, 230, 118, 0.08);
+.select.active {
     border-color: var(--primary);
+    background: rgba(0, 230, 118, 0.06);
     box-shadow: 0 0 10px var(--primary-glow);
 }
 
-.btn-amount {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--text-primary);
+body.light-theme .select.active {
+    background: rgba(16, 132, 0, 0.08);
 }
 
-.btn-desc {
-    font-size: 0.65rem;
+.select h3 {
+    display: inline;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.select p {
+    font-size: 0.6rem;
+    font-weight: 700;
     color: var(--text-muted);
-    font-weight: 600;
+    margin-top: 4px;
     letter-spacing: 0.5px;
 }
 
-/* Special button styles */
-.quick-select-btn.popular {
+.select.popular {
     border: 2px solid var(--primary);
-    overflow: visible;
+    background: rgba(0, 230, 118, 0.04);
 }
 
-.badge-popular {
+.popular-tag {
     position: absolute;
     top: -9px;
     background: var(--primary);
-    color: #000;
+    color: #fff;
+    border: none;
     font-size: 0.6rem;
     font-weight: 800;
-    padding: 1px 6px;
+    padding: 2px 8px;
     border-radius: 10px;
     text-transform: uppercase;
     box-shadow: var(--shadow-sm);
+    cursor: pointer;
 }
 
-/* Custom quantity selectors */
-.custom-qty-wrapper {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    padding: 1.2rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--shadow-sm);
+body.light-theme .popular-tag {
+    background: var(--primary);
+    color: #fff;
 }
 
-.qty-selector {
+/* Cart input & dynamic CTA button */
+.add-to-cart {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media(min-width: 480px) {
+    .add-to-cart {
+        flex-direction: row;
+    }
+}
+
+.quantity-input {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1.2rem;
-    background: var(--bg-main);
+    background: var(--bg-surface-elevated);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
-    padding: 0.3rem;
+    padding: 0.5rem;
+    flex-grow: 1;
 }
 
-.qty-btn {
-    background: var(--bg-surface-elevated);
-    border: none;
-    color: var(--text-primary);
-    width: 44px;
-    height: 44px;
-    border-radius: var(--border-radius-sm);
-    font-size: 1.5rem;
-    font-weight: 600;
+.quantity-input i {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.1s ease;
+    transition: transform 0.1s ease;
 }
 
-.qty-btn:active {
-    transform: scale(0.95);
-    background: var(--border-color);
+.quantity-input i#qty-plus-icon {
+    color: var(--primary);
 }
 
-.qty-selector input {
+.quantity-input i:active {
+    transform: scale(0.85);
+}
+
+.input-quantity {
     background: transparent;
     border: none;
     color: var(--text-primary);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
     text-align: center;
-    width: 100px;
+    width: 80px;
     outline: none;
 }
 
-/* Chrome, Safari, Edge, Opera: hide spin buttons */
-.qty-selector input::-webkit-outer-spin-button,
-.qty-selector input::-webkit-inner-spin-button {
+/* Hide Spin buttons */
+.input-quantity::-webkit-outer-spin-button,
+.input-quantity::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Firefox: hide spin buttons */
-.qty-selector input[type=number] {
-    -moz-appearance: textfield;
-}
-
-/* CTA Purchase Button */
-.cta-purchase-btn {
-    width: 100%;
+.btn-add-to-cart {
     background: linear-gradient(135deg, var(--primary), #00b0ff);
+    color: #fff;
     border: none;
     border-radius: var(--border-radius-sm);
-    padding: 1.1rem;
-    color: #000;
+    padding: 0.9rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     cursor: pointer;
     font-weight: 800;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px var(--primary-glow);
     transition: all 0.2s ease;
+    box-shadow: 0 4px 15px var(--primary-glow);
+    flex-grow: 2;
 }
 
-.cta-purchase-btn:hover {
+.btn-add-to-cart:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.5);
+    box-shadow: 0 6px 20px var(--primary-glow);
 }
 
-.cta-purchase-btn:active {
-    transform: translateY(0);
-}
-
-.cta-content {
+.btn-add-to-cart-text {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 2;
+    width: 100%;
 }
 
-.cta-text {
-    font-size: 1.05rem;
-    letter-spacing: 0.5px;
+.btn-add-to-cart i {
+    font-size: 1.3rem;
 }
 
-.cta-price {
-    font-size: 1.25rem;
+.participate {
     background: rgba(0, 0, 0, 0.15);
-    padding: 0.25rem 0.8rem;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 1.1rem;
+    display: flex;
+    gap: 2px;
 }
 
-.cta-pulse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: ctaRipple 3s infinite;
-    z-index: 1;
+.price-participate {
+    display: inline;
+    font-weight: 800;
 }
 
-/* Combo styles */
-.promotional-combos {
-    margin-top: 1.5rem;
+/* Limit titles rest warning banner */
+.numbersRest {
+    background: #fff3cd;
+    border: 1px solid #ffe69c;
+    color: #664d03;
+    padding: 0.8rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: none;
 }
 
+/* ==========================================================================
+   COMBOS: SPINS-SINGLE & BOXES-SINGLE
+   ========================================================================== */
 .combo-title {
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-secondary);
     margin-bottom: 0.8rem;
+    margin-top: 1.5rem;
 }
 
-.combos-list {
+.spins-container, .boxes-container {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
 
-.combo-card {
-    background: var(--bg-surface);
+.spins-content, .boxes-content {
+    background: linear-gradient(90deg, var(--bg-surface-elevated), var(--bg-surface));
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
     padding: 1rem;
@@ -575,185 +626,248 @@ section {
     transition: all 0.2s ease;
 }
 
-.combo-card:hover {
-    background: var(--bg-surface-elevated);
-    border-color: var(--primary-glow);
+.spins-content:hover, .boxes-content:hover {
+    border-color: var(--primary);
+    background: linear-gradient(90deg, var(--bg-surface-elevated), rgba(0, 230, 118, 0.04));
 }
 
-.combo-card.highlighted {
-    border: 1px solid rgba(255, 215, 0, 0.4);
-    background: linear-gradient(90deg, var(--bg-surface), rgba(255, 215, 0, 0.03));
+.spins-content.highlighted, .boxes-content.highlighted {
+    border: 1.5px solid var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
 }
 
-.combo-card.highlighted:hover {
-    border-color: var(--accent);
-}
-
-.combo-qty {
-    display: block;
-    font-size: 1.05rem;
+.qtd_numbers h4 {
+    font-size: 1.1rem;
     font-weight: 800;
 }
 
-.combo-desc {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    display: block;
+.price-spin {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.85rem;
     margin-top: 2px;
 }
 
-.combo-price-action {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.combo-val {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-.combo-card.highlighted .combo-val {
-    color: var(--accent);
-}
-
-.combo-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    background: var(--bg-surface-elevated);
+.p-1 {
+    font-size: 0.72rem;
     color: var(--text-secondary);
-    padding: 2px 6px;
-    border-radius: 4px;
     margin-top: 4px;
-    border: 1px solid var(--border-color);
-    text-transform: uppercase;
 }
 
-.combo-card.highlighted .combo-badge {
-    background: rgba(255, 215, 0, 0.15);
-    color: var(--accent);
-    border: 1px solid rgba(255, 215, 0, 0.3);
+.gift-spins, .gift-boxes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+body.light-theme .gift-spins, body.light-theme .gift-boxes {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.spins-gift h4, .boxes-gift h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.spins-gift p, .boxes-gift p {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+}
+
+.gift-spins h5, .gift-boxes h5 {
+    font-size: 1.4rem;
 }
 
 /* ==========================================================================
-   INSTANT PRIZES ACCORDION
+   DESCRIPTION & REGULAMENTO
    ========================================================================== */
-.prizes-section {
+.description-single {
+    margin-top: 2rem;
     background: var(--bg-surface);
-}
-
-.accordion-item {
-    background: var(--bg-surface-elevated);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
-    margin-bottom: 0.8rem;
     overflow: hidden;
 }
 
-.accordion-header {
-    width: 100%;
+.btn-Description {
     background: none;
     border: none;
-    padding: 1.1rem;
     color: var(--text-primary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-family: inherit;
     font-weight: 700;
+    font-size: 0.9rem;
+    padding: 1.1rem;
+    width: 100%;
     text-align: left;
-}
-
-.accordion-title-text {
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
+    gap: 8px;
+    font-family: inherit;
 }
 
-.accordion-badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 12px;
-}
-
-.accordion-badge.green {
-    background: rgba(0, 230, 118, 0.15);
-    color: var(--primary);
-}
-
-.accordion-arrow {
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid var(--text-secondary);
-    border-bottom: 2px solid var(--text-secondary);
-    transform: rotate(45deg);
-    transition: transform 0.2s ease;
-    margin-left: 0.5rem;
-}
-
-.accordion-header[aria-expanded="true"] .accordion-arrow {
-    transform: rotate(-135deg);
-}
-
-.accordion-content {
+.description-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(0, 0, 0, 0.12);
 }
 
-.instant-prizes-list {
-    list-style: none;
-    padding: 0.5rem 1.1rem 1.1rem 1.1rem;
+.desc-text-wrapper {
+    padding: 1.1rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
 }
 
-.prize-row {
+/* ==========================================================================
+   AWARDS GRID (INSTANT PRIZES)
+   ========================================================================== */
+.prizes-section {
+    background: var(--bg-surface);
+}
+
+.awards-roulette-single {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 1.2rem;
+}
+
+.title-award-roulette {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
-.prize-row:last-child {
-    border-bottom: none;
+.title-award-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.prize-code {
-    font-weight: 700;
+.title-award-section span.icon {
+    font-size: 1.6rem;
+}
+
+.title-award-roulette-text h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.title-award-roulette-text p {
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
-.prize-name {
-    font-weight: 600;
+.total-awards-roulette {
+    border: 1.5px solid var(--primary);
+    border-radius: 8px;
+    padding: 4px 10px;
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
 }
 
-.prize-status {
+.total-awards-roulette h5 {
+    display: inline;
+    font-size: 0.85rem;
+}
+
+/* Grid columns for available / won */
+.awards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.grid-awards-available {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.awards-available-content {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1rem;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.award-available-text span {
+    font-family: monospace;
+    font-weight: 700;
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.available-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.dot-green {
+    color: var(--primary);
+}
+
+.grid-awards-won {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+}
+
+.awards-won-content {
+    background: var(--primary);
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+body.light-theme .awards-won-content {
+    color: #fff;
+}
+
+.awards-won-content p span {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.awards-won-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-weight: 700;
     font-size: 0.75rem;
-}
-
-.prize-row.available .prize-status {
-    color: var(--primary);
-    background: rgba(0, 230, 118, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
-}
-
-.prize-row.claimed .prize-status {
-    color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.05);
-    padding: 2px 8px;
-    border-radius: 4px;
-}
-
-.prize-row.claimed .prize-code {
-    text-decoration: line-through;
 }
 
 /* ==========================================================================
@@ -821,22 +935,6 @@ section {
 }
 
 /* ==========================================================================
-   REGULAMENTO / TERMS
-   ========================================================================== */
-.terms-section {
-    background: var(--bg-surface);
-}
-
-.terms-content {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    line-height: 1.6;
-}
-
-/* ==========================================================================
    FOOTER
    ========================================================================== */
 .app-footer {
@@ -878,7 +976,7 @@ section {
 }
 
 /* ==========================================================================
-   MODAL OVERLAY & CARD
+   MODALS LAYOUT
    ========================================================================== */
 .modal-overlay {
     position: fixed;
@@ -890,7 +988,7 @@ section {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     display: flex;
-    align-items: flex-end; /* Mobile bottom sheet style */
+    align-items: flex-end;
     justify-content: center;
     z-index: 200;
     opacity: 0;
@@ -900,7 +998,7 @@ section {
 
 @media(min-width: 600px) {
     .modal-overlay {
-        align-items: center; /* Desktop centered style */
+        align-items: center;
     }
 }
 
@@ -971,7 +1069,44 @@ section {
     margin-bottom: 1.5rem;
 }
 
-/* Form inputs */
+/* Campaign specific prizes modal layout */
+.modal-prizes-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-prizes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal-prize-item {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+}
+
+.prize-rank {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.prize-desc {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Form inputs & buttons */
 .form-group {
     margin-bottom: 1.2rem;
 }
@@ -1008,7 +1143,7 @@ section {
     width: 100%;
     background: var(--primary);
     border: none;
-    color: #000;
+    color: #fff;
     padding: 1rem;
     border-radius: var(--border-radius-sm);
     font-weight: 800;
@@ -1021,7 +1156,6 @@ section {
     background: var(--primary-hover);
 }
 
-/* Search results list */
 .search-results {
     margin-top: 1.5rem;
     border-top: 1px solid var(--border-color);
@@ -1182,7 +1316,7 @@ section {
 .btn-copy {
     background: var(--primary);
     border: none;
-    color: #000;
+    color: #fff;
     font-weight: 800;
     padding: 0 1.2rem;
     border-radius: 4px;
@@ -1204,19 +1338,6 @@ section {
 /* ==========================================================================
    KEYFRAME ANIMATIONS
    ========================================================================== */
-@keyframes ctaRipple {
-    0% {
-        width: 0;
-        height: 0;
-        opacity: 0.5;
-    }
-    100% {
-        width: 500px;
-        height: 500px;
-        opacity: 0;
-    }
-}
-
 @keyframes badgePulse {
     0% {
         transform: scale(1);

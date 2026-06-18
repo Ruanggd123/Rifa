@@ -3,12 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // CONFIGURATION & CONSTANTS
     // ==========================================================================
     const TICKET_PRICE = 0.10;
-    let currentQuantity = 100;
+    const TOTAL_NUMBERS_AVAILABLE = 507436;
+    let currentQuantity = 45;
 
     // Dummy user database for "Meus Títulos" lookup simulator
     const mockUsers = {
         '11999999999': {
-            name: 'José da Silva',
+            name: 'Renan & Junior',
             tickets: ['029481', '029482', '029483', '122890', '169976'],
             date: '18/06/2026',
             status: 'Aprovado via PIX'
@@ -24,17 +25,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // DOM ELEMENTS
     // ==========================================================================
-    // Selector elements
+    // Quantity controls
     const qtyInput = document.getElementById('qty-input');
-    const qtyMinus = document.getElementById('qty-minus');
-    const qtyPlus = document.getElementById('qty-plus');
-    const quickButtons = document.querySelectorAll('.quick-select-btn');
-    const comboCards = document.querySelectorAll('.combo-card');
+    const qtyMinus = document.getElementById('qty-minus-icon');
+    const qtyPlus = document.getElementById('qty-plus-icon');
+    
+    // Select items
+    const selectItems = document.querySelectorAll('.content-select .select');
+    const spinsContents = document.querySelectorAll('.spins-content');
+    const boxesContents = document.querySelectorAll('.boxes-content');
+    
+    // Total prices
     const ctaTotalPrice = document.getElementById('cta-total-price');
     const ctaPurchaseBtn = document.getElementById('cta-purchase');
+    
+    // Limit alerts
+    const numbersRest = document.getElementById('numbersRest');
+    const restNumbersSpan = numbersRest.querySelector('.rest-numbers');
 
     // Accordions
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    const btnDescription = document.getElementById('btnDescription');
+    const descriptionContent = document.getElementById('description-content');
 
     // Modals
     const btnMyTickets = document.getElementById('btnMyTickets');
@@ -44,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchPhoneInput = document.getElementById('search-phone');
     const searchResults = document.getElementById('search-results');
 
+    const btnPrizeOpen = document.getElementById('prize-open');
+    const modalPrizes = document.getElementById('modal-prizes');
+    const btnPrizeClose = document.getElementById('prize-close');
+
     const modalCheckout = document.getElementById('modalCheckout');
     const closeCheckout = document.getElementById('closeCheckout');
     const formCheckout = document.getElementById('form-checkout');
@@ -52,53 +67,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const userNameInput = document.getElementById('user-name');
     const userPhoneInput = document.getElementById('user-phone');
     
-    // Summary inside checkout
+    // Summary
     const summaryQty = document.getElementById('summary-qty');
     const summaryTotal = document.getElementById('summary-total');
     
-    // PIX Elements
+    // PIX timer & elements
     const pixTimer = document.getElementById('pix-timer');
     const btnCopyPix = document.getElementById('btnCopyPix');
     const pixCodeInput = document.getElementById('pix-code');
 
     // ==========================================================================
-    // EVENT LISTENERS & FUNCTIONALITY
+    // PRICING & SELECTION ENGINE
     // ==========================================================================
-
-    // Dynamic Price Calculation
     function updatePricing(quantity) {
         if (isNaN(quantity) || quantity < 1) {
             quantity = 1;
         }
+        
         currentQuantity = quantity;
         qtyInput.value = quantity;
-        
+
+        // Verify availability limit
+        if (quantity > TOTAL_NUMBERS_AVAILABLE) {
+            ctaPurchaseBtn.style.pointerEvents = 'none';
+            ctaPurchaseBtn.style.opacity = '0.5';
+            numbersRest.style.display = 'block';
+            restNumbersSpan.textContent = TOTAL_NUMBERS_AVAILABLE;
+        } else {
+            ctaPurchaseBtn.style.pointerEvents = 'auto';
+            ctaPurchaseBtn.style.opacity = '1';
+            numbersRest.style.display = 'none';
+        }
+
+        // Calculate and format total
         const total = quantity * TICKET_PRICE;
-        ctaTotalPrice.textContent = formatCurrency(total);
+        ctaTotalPrice.textContent = total.toFixed(2).replace('.', ',');
 
-        // Update active state in grid buttons
-        quickButtons.forEach(btn => {
-            const amount = parseInt(btn.dataset.amount);
+        // Update active class on grid selections
+        selectItems.forEach(item => {
+            const amount = parseInt(item.dataset.amount);
             if (amount === quantity) {
-                btn.classList.add('active');
+                item.classList.add('active');
             } else {
-                btn.classList.remove('active');
+                item.classList.remove('active');
             }
         });
 
-        // Update active state in combo cards
-        comboCards.forEach(card => {
-            const amount = parseInt(card.dataset.amount);
+        // Update active status on spin combos
+        spinsContents.forEach(spin => {
+            const amount = parseInt(spin.dataset.amount);
             if (amount === quantity) {
-                card.classList.add('highlighted');
+                spin.classList.add('highlighted');
             } else {
-                card.classList.remove('highlighted');
+                spin.classList.remove('highlighted');
             }
         });
-    }
 
-    function formatCurrency(value) {
-        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        // Update active status on box combos
+        boxesContents.forEach(box => {
+            const amount = parseInt(box.dataset.amount);
+            if (amount === quantity) {
+                box.classList.add('highlighted');
+            } else {
+                box.classList.remove('highlighted');
+            }
+        });
     }
 
     // Input handlers
@@ -117,60 +150,52 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePricing(currentQuantity + 1);
     });
 
-    // Quick select buttons
-    quickButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const amount = parseInt(btn.dataset.amount);
-            updatePricing(amount);
-            
-            // Subtle click scale effect
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => { btn.style.transform = ''; }, 100);
-        });
-    });
-
-    // Combo Cards
-    comboCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const amount = parseInt(card.dataset.amount);
+    // Select single options click events
+    selectItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const amount = parseInt(item.dataset.amount);
             updatePricing(amount);
         });
     });
 
-    // ==========================================================================
-    // ACCORDIONS
-    // ==========================================================================
-    accordionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const isExpanded = header.getAttribute('aria-expanded') === 'true';
-            const targetId = header.getAttribute('aria-controls');
-            const targetContent = document.getElementById(targetId);
+    // Spin combos click events
+    spinsContents.forEach(spin => {
+        spin.addEventListener('click', () => {
+            const amount = parseInt(spin.dataset.amount);
+            updatePricing(amount);
+            triggerCheckoutFlow();
+        });
+    });
 
-            // Close all other accordions for compact clean view
-            accordionHeaders.forEach(h => {
-                if (h !== header) {
-                    h.setAttribute('aria-expanded', 'false');
-                    const c = document.getElementById(h.getAttribute('aria-controls'));
-                    c.style.maxHeight = null;
-                }
-            });
-
-            if (isExpanded) {
-                header.setAttribute('aria-expanded', 'false');
-                targetContent.style.maxHeight = null;
-            } else {
-                header.setAttribute('aria-expanded', 'true');
-                targetContent.style.maxHeight = targetContent.scrollHeight + "px";
-            }
+    // Box combos click events
+    boxesContents.forEach(box => {
+        box.addEventListener('click', () => {
+            const amount = parseInt(box.dataset.amount);
+            updatePricing(amount);
+            triggerCheckoutFlow();
         });
     });
 
     // ==========================================================================
-    // MODALS FLOW
+    // DESCRIPTION ACCORDION
+    // ==========================================================================
+    btnDescription.addEventListener('click', () => {
+        const isOpen = btnDescription.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+            btnDescription.setAttribute('aria-expanded', 'false');
+            descriptionContent.style.maxHeight = null;
+        } else {
+            btnDescription.setAttribute('aria-expanded', 'true');
+            descriptionContent.style.maxHeight = descriptionContent.scrollHeight + "px";
+        }
+    });
+
+    // ==========================================================================
+    // MODALS HANDLERS
     // ==========================================================================
     function openModal(modal) {
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Lock background scroll
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal(modal) {
@@ -178,29 +203,32 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    // Modal "Meus Títulos"
+    // Campaign prizes modal
+    btnPrizeOpen.addEventListener('click', () => openModal(modalPrizes));
+    btnPrizeClose.addEventListener('click', () => closeModal(modalPrizes));
+
+    // My tickets search modal
     btnMyTickets.addEventListener('click', () => {
         openModal(modalMyTickets);
         searchResults.classList.add('hidden');
         searchPhoneInput.value = '';
     });
-    
     closeMyTickets.addEventListener('click', () => closeModal(modalMyTickets));
 
-    // Search action simulator
+    // Search simulation
     btnSearchSubmit.addEventListener('click', () => {
-        const rawPhone = searchPhoneInput.value.replace(/\D/g, '');
+        const phone = searchPhoneInput.value.replace(/\D/g, '');
         searchResults.classList.remove('hidden');
-        
-        if (mockUsers[rawPhone]) {
-            const user = mockUsers[rawPhone];
+
+        if (mockUsers[phone]) {
+            const user = mockUsers[phone];
             searchResults.innerHTML = `
                 <div class="search-result-item">
                     <div class="result-header">
                         <span>${user.name}</span>
                         <span class="result-status">✅ ${user.status}</span>
                     </div>
-                    <p style="font-size: 0.75rem; color: var(--text-secondary);">Comprado em: ${user.date}</p>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 5px;">Comprado em: ${user.date}</p>
                     <div class="result-tickets-list">
                         ${user.tickets.map(ticket => `<span class="result-ticket-badge">${ticket}</span>`).join('')}
                     </div>
@@ -210,56 +238,52 @@ document.addEventListener('DOMContentLoaded', () => {
             searchResults.innerHTML = `
                 <div class="search-result-item text-center" style="border-color: var(--danger);">
                     <p style="color: var(--danger); font-weight: 700;">Nenhum bilhete encontrado</p>
-                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;">
-                        Verifique se digitou o telefone corretamente com o DDD (Ex: 11999999999).
+                    <p style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">
+                        Verifique o telefone digitado (Ex: 11999999999).
                     </p>
                 </div>
             `;
         }
     });
 
-    // Format phone mask dynamically
-    const applyPhoneMask = (input) => {
+    // Formatting Phone Mask
+    const maskPhone = (input) => {
         input.addEventListener('input', (e) => {
             let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
             e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
         });
     };
-    applyPhoneMask(searchPhoneInput);
-    applyPhoneMask(userPhoneInput);
+    maskPhone(searchPhoneInput);
+    maskPhone(userPhoneInput);
 
     // ==========================================================================
-    // CHECKOUT PROCESS
+    // CHECKOUT FLOW
     // ==========================================================================
-    ctaPurchaseBtn.addEventListener('click', () => {
-        // Prepare Step 1 summary
+    function triggerCheckoutFlow() {
         summaryQty.textContent = `${currentQuantity} Títulos`;
-        summaryTotal.textContent = formatCurrency(currentQuantity * TICKET_PRICE);
-        
-        // Setup initial step state
+        summaryTotal.textContent = 'R$ ' + (currentQuantity * TICKET_PRICE).toFixed(2).replace('.', ',');
         checkoutStep1.classList.remove('hidden');
         checkoutStep2.classList.add('hidden');
-        
         openModal(modalCheckout);
-    });
+    }
 
+    ctaPurchaseBtn.addEventListener('click', triggerCheckoutFlow);
     closeCheckout.addEventListener('click', () => closeModal(modalCheckout));
 
-    // Submit Checkout step 1 -> step 2
+    // Submit user details -> load PIX
     formCheckout.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Simulate save purchase database entry
         const phoneKey = userPhoneInput.value.replace(/\D/g, '');
         const nameVal = userNameInput.value;
 
-        // Generate tickets list based on current selection size
+        // Generate mock tickets list
         const generatedTickets = [];
-        for (let i = 0; i < Math.min(currentQuantity, 10); i++) {
+        for (let i = 0; i < Math.min(currentQuantity, 6); i++) {
             generatedTickets.push(Math.floor(100000 + Math.random() * 900000).toString());
         }
-        if (currentQuantity > 10) {
-            generatedTickets.push(`+ ${currentQuantity - 10} mais...`);
+        if (currentQuantity > 6) {
+            generatedTickets.push(`+ ${currentQuantity - 6} mais...`);
         }
 
         mockUsers[phoneKey] = {
@@ -269,22 +293,22 @@ document.addEventListener('DOMContentLoaded', () => {
             status: 'Pendente via PIX'
         };
 
-        // Transition layout steps
+        // Transition checkout step views
         checkoutStep1.classList.add('hidden');
         checkoutStep2.classList.remove('hidden');
         
-        startTimer(600, pixTimer); // 10 minutes PIX expiration timer
+        startTimer(600, pixTimer);
     });
 
-    // Copy Paste PIX button
+    // Copy Paste PIX logic
     btnCopyPix.addEventListener('click', () => {
         pixCodeInput.select();
-        pixCodeInput.setSelectionRange(0, 99999); // For mobile devices
+        pixCodeInput.setSelectionRange(0, 99999);
         
         navigator.clipboard.writeText(pixCodeInput.value)
             .then(() => {
                 btnCopyPix.textContent = 'Copiado!';
-                btnCopyPix.style.background = '#ffd700'; // Feedback background
+                btnCopyPix.style.background = '#ffd700';
                 btnCopyPix.style.color = '#000';
                 
                 setTimeout(() => {
@@ -298,12 +322,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 
-    // Timer simulation utility
+    // Timer utility
     let intervalId = null;
     function startTimer(duration, display) {
-        if (intervalId) {
-            clearInterval(intervalId);
-        }
+        if (intervalId) clearInterval(intervalId);
         
         let timer = duration, minutes, seconds;
         intervalId = setInterval(() => {
@@ -322,10 +344,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    // Modal background click close handler
+    // Modal background clicks to dismiss overlay
     window.addEventListener('click', (e) => {
         if (e.target === modalMyTickets) closeModal(modalMyTickets);
         if (e.target === modalCheckout) closeModal(modalCheckout);
+        if (e.target === modalPrizes) closeModal(modalPrizes);
     });
 
     // ==========================================================================
@@ -353,6 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initial load setup
-    updatePricing(200); // Sets default recommended tickets count
+    // Initialize layout status
+    updatePricing(currentQuantity);
 });
